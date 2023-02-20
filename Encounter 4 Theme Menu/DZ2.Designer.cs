@@ -28,65 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBoxDrives = new System.Windows.Forms.ListBox();
-            this.listViewContent = new System.Windows.Forms.ListView();
-            this.treeViewFolders = new System.Windows.Forms.TreeView();
-            this.textBoxAddress = new System.Windows.Forms.TextBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // listBoxDrives
+            // listView1
             // 
-            this.listBoxDrives.FormattingEnabled = true;
-            this.listBoxDrives.ItemHeight = 15;
-            this.listBoxDrives.Location = new System.Drawing.Point(12, 12);
-            this.listBoxDrives.Name = "listBoxDrives";
-            this.listBoxDrives.Size = new System.Drawing.Size(333, 229);
-            this.listBoxDrives.TabIndex = 0;
-            this.listBoxDrives.SelectedIndexChanged += new System.EventHandler(this.listBoxDrives_SelectedIndexChanged);
+            this.listView1.Location = new System.Drawing.Point(699, 43);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(483, 306);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
-            // listViewContent
+            // button1
             // 
-            this.listViewContent.Location = new System.Drawing.Point(381, 12);
-            this.listViewContent.Name = "listViewContent";
-            this.listViewContent.Size = new System.Drawing.Size(567, 292);
-            this.listViewContent.TabIndex = 1;
-            this.listViewContent.UseCompatibleStateImageBehavior = false;
-            this.listViewContent.DoubleClick += new System.EventHandler(this.listViewContent_DoubleClick);
+            this.button1.Location = new System.Drawing.Point(323, 446);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(307, 84);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // treeViewFolders
+            // treeView1
             // 
-            this.treeViewFolders.Location = new System.Drawing.Point(12, 324);
-            this.treeViewFolders.Name = "treeViewFolders";
-            this.treeViewFolders.Size = new System.Drawing.Size(550, 257);
-            this.treeViewFolders.TabIndex = 2;
-            this.treeViewFolders.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFolders_AfterSelect);
+            this.treeView1.Location = new System.Drawing.Point(12, 32);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(586, 294);
+            this.treeView1.TabIndex = 2;
+            this.treeView1.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterExpand);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
-            // textBoxAddress
+            // label1
             // 
-            this.textBoxAddress.Location = new System.Drawing.Point(731, 511);
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(368, 23);
-            this.textBoxAddress.TabIndex = 3;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(738, 413);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 25);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Path";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(796, 415);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(315, 23);
+            this.textBox1.TabIndex = 4;
             // 
             // DZ2
             // 
-            this.ClientSize = new System.Drawing.Size(1346, 622);
-            this.Controls.Add(this.textBoxAddress);
-            this.Controls.Add(this.treeViewFolders);
-            this.Controls.Add(this.listViewContent);
-            this.Controls.Add(this.listBoxDrives);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1194, 586);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.listView1);
             this.Name = "DZ2";
+            this.Text = "DZ2";
+            this.Load += new System.EventHandler(this.TestForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-
         #endregion
 
-        private ListBox listBoxDrives;
-        private ListView listViewContent;
-        private TreeView treeViewFolders;
-        private TextBox textBoxAddress;
+        private ListView listView1;
+        private Button button1;
+        private TreeView treeView1;
+        private Label label1;
+        private TextBox textBox1;
     }
 }

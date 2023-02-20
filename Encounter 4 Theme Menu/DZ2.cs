@@ -1,106 +1,88 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Encounter_4_Theme_Menu
 {
     public partial class DZ2 : Form
     {
-        private string currentPath = "";
+
+        TreeNode tree = new TreeNode();
         public DZ2()
         {
             InitializeComponent();
+        }
 
-            string[] drives = Directory.GetLogicalDrives();
-            foreach (string drive in drives)
+
+        private void TestForm_Load(object sender, EventArgs e)
+        {
+            
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo driveInfo in drives)
             {
-                listBoxDrives.Items.Add(drive);
+                TreeNode drivenode = new TreeNode(driveInfo.Name);
+                
+                drivenode.Nodes.Add("*");
+                listView1.Items.Add(driveInfo.Name);
+                treeView1.Nodes.Add(drivenode);
             }
-
+            //treeView1.Nodes.Add(new TreeNode(driveInfo.Name));
         }
 
 
-        private void listBoxDrives_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            currentPath = listBoxDrives.SelectedItem.ToString();
-            UpdateFolderTree();
-            UpdateAddressBar();
-            UpdateContentList();
-        }
+        
 
-        private void treeViewFolders_AfterSelect(object sender, TreeViewEventArgs e)
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            currentPath = e.Node.FullPath;
-            UpdateAddressBar();
-            UpdateContentList();
-        }
-
-        private void listViewContent_DoubleClick(object sender, EventArgs e)
-        {
-            if (listViewContent.SelectedItems.Count == 1)
+            //MessageBox.Show(e.Node.Text);
+            listView1.Clear();
+            textBox1.Text= e.Node.Text;
+            foreach (string item in Directory.GetDirectories(e.Node.Text))
             {
-                ListViewItem item = listViewContent.SelectedItems[0];
-                if (item.ImageIndex == 0)
-                {
-                    currentPath = Path.Combine(currentPath, item.Text);
-                    UpdateFolderTree();
-                    UpdateAddressBar();
-                    UpdateContentList();
-                }
+                string name = item.Remove(0, e.Node.Text.Length);
+                listView1.Items.Add(name);
             }
         }
-
-        private void UpdateFolderTree()
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DirectoryInfo directory = new DirectoryInfo(currentPath);
-            TreeNode rootNode = new TreeNode(directory.Name);
 
+        }
+        private TreeNode PopulateTreeNode(string path, TreeNode node)
+        {
             try
             {
-                foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+                foreach (string item in Directory.GetDirectories(path))
                 {
-                    TreeNode subNode = new TreeNode(subDirectory.Name);
-                    subNode.Nodes.Add("*"); 
-                    rootNode.Nodes.Add(subNode);
+                    TreeNode itemNode = new TreeNode(item);
+                    if(Directory.GetDirectories(item).Length != 0)
+                    {
+                        itemNode.Nodes.Add("*");
+                    }
+                    node.Nodes.Add(itemNode);
+                
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
-            }
 
-            treeViewFolders.Nodes.Add(rootNode);
+            }
+            return node;
         }
 
-        private void UpdateAddressBar()
+        private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            textBoxAddress.Text = currentPath;
+            e.Node.Nodes.Clear();
+            
+            PopulateTreeNode(e.Node.Text,e.Node);
         }
-
-        private void UpdateContentList()
-        {
-            listViewContent.Items.Clear();
-            DirectoryInfo directory = new DirectoryInfo(currentPath);
-            try
-            {
-                foreach (DirectoryInfo d in directory.GetDirectories())
-                {
-                    ListViewItem item = new ListViewItem(d.Name);
-                    item.ImageIndex = 0;
-                    listViewContent.Items.Add(item);
-                }
-                foreach (FileInfo f in directory.GetFiles())
-                {
-                    ListViewItem item = new ListViewItem(f.Name);
-                    item.ImageIndex = 1;
-                    item.SubItems.Add(f.Length.ToString());
-                    listViewContent.Items.Add(item);
-                }
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show("Доступ к этой папке запрещен");
-            }
-        }
-
     }
 }
-
