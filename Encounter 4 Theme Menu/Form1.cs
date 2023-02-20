@@ -18,5 +18,12 @@ namespace Encounter_4_Theme_Menu
             DZ2 dZ = new DZ2();
             dZ.ShowDialog();
         }
+
+        private void MyProg_Click(object sender, EventArgs e)
+        {
+            MyProgram program = new MyProgram();
+
+            program.ShowDialog();
+        }
     }
 }

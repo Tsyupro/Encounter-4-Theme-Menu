@@ -58,7 +58,7 @@ namespace Encounter_4_Theme_Menu
                 foreach (DirectoryInfo subDirectory in directory.GetDirectories())
                 {
                     TreeNode subNode = new TreeNode(subDirectory.Name);
-                    subNode.Nodes.Add("*"); // Додаємо зірочку, щоб мати можливість розгортати папку
+                    subNode.Nodes.Add("*"); 
                     rootNode.Nodes.Add(subNode);
                 }
             }
